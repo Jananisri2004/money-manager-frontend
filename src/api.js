@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5000/api/transactions"
+    baseURL: "https://your-backend-name.onrender.com/api/transactions"
 });
