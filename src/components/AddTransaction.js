@@ -11,7 +11,7 @@ export default function AddTransaction() {
   });
 
   const submit = async () => {
-    await api.post("/add", form);
+    await api.post("/", form);
     window.location.reload();
   };
 
