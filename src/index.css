@@ -96,21 +96,32 @@ body {
 
 /* Premium gradients */
 
+.card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  background: white;
+  border-left: 6px solid;
+  color: #1e293b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Corporate Green */
 .card.income {
-
-  background: linear-gradient(135deg, #16a34a, #22c55e);
+  border-left-color: #16a34a;
 }
 
+/* Corporate Red */
 .card.expense {
-
-  background: linear-gradient(135deg, #dc2626, #ef4444);
+  border-left-color: #dc2626;
 }
 
+/* Corporate Blue */
 .card.balance {
-
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border-left-color: #2563eb;
 }
-
 
 /* ===== INPUTS ===== */
 

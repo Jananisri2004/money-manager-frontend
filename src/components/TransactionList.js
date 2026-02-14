@@ -1,59 +1,44 @@
-import React, { useEffect, useState } from "react";
-import axios from "../api";
+import { useEffect, useState } from "react";
+import api from "../api";
+import Filter from "./Filter";
 
-function Dashboard() {
+export default function TransactionList() {
+  const [list, setList] = useState([]);
 
-  const [summary, setSummary] = useState({
-    income: 0,
-    expense: 0,
-    balance: 0
-  });
+  useEffect(()=>{ api.get("/").then(r=>setList(r.data)); },[]);
 
-  useEffect(() => {
-    loadSummary();
-  }, []);
-
-  const loadSummary = async () => {
+  const edit = async (tx) => {
+    const amt = prompt("New amount", tx.amount);
     try {
-      const res = await axios.get("/summary?range=overall");
-      setSummary(res.data);
-    } catch (err) {
-      console.error(err);
+      await api.put(`/edit/${tx._id}`, { amount:+amt });
+      setList((await api.get("/")).data);
+    } catch {
+      alert("Edit restricted after 12 hours");
     }
   };
 
   return (
-    <div>
+    <div className="section">
+<h2>Transaction Analysis</h2>
+<p style={{color:"#6b7280"}}>Filter and review your financial activity</p>
+      <Filter setList={setList} />
 
-      <div className="dashboard-header">
-        <h2>Dashboard</h2>
-
-        <select className="range-select">
-          <option>Overall</option>
-          <option>Month</option>
-          <option>Week</option>
-          <option>Year</option>
-        </select>
-      </div>
-
-      <div className="cards">
-
-        <div className="card income">
-          Income ₹{summary.income}
-        </div>
-
-        <div className="card expense">
-          Expense ₹{summary.expense}
-        </div>
-
-        <div className="card balance">
-          Balance ₹{summary.balance}
-        </div>
-
-      </div>
-
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Amount</th><th>Category</th><th>Division</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          {list.map(t=>(
+            <tr key={t._id}>
+<td>{t.type.charAt(0).toUpperCase() + t.type.slice(1)}</td>
+              <td>₹{t.amount}</td>
+              <td>{t.category}</td>
+              <td>{t.division}</td>
+              <td><button onClick={()=>edit(t)}>Edit</button></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
-
-export default Dashboard;

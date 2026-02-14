@@ -1,37 +1,59 @@
-import { useEffect, useState } from "react";
-import api from "../api";
+import React, { useEffect, useState } from "react";
+import axios from "../api";
 
-export default function Dashboard() {
-  const [income, setIncome] = useState(0);
-  const [expense, setExpense] = useState(0);
+function Dashboard() {
 
-  const load = async (range="all") => {
-    const res = await api.get(`/summary?range=${range}`);
-    setIncome(res.data.income);
-    setExpense(res.data.expense);
+  const [summary, setSummary] = useState({
+    income: 0,
+    expense: 0,
+    balance: 0
+  });
+
+  useEffect(() => {
+    loadSummary();
+  }, []);
+
+  const loadSummary = async () => {
+    try {
+      const res = await axios.get("/summary?range=overall");
+      setSummary(res.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  useEffect(() => { load(); }, []);
-
   return (
-    
-    <>
-    <div className="dashboard-header">
+    <div>
 
-  <h2>Dashboard</h2>
+      <div className="dashboard-header">
+        <h2>Dashboard</h2>
 
-  <select
-    className="range-select"
-    onChange={(e) => load(e.target.value)}
-  >
-    <option value="all">Overall</option>
-    <option value="month">This Month</option>
-    <option value="week">This Week</option>
-    <option value="year">This Year</option>
-  </select>
+        <select className="range-select">
+          <option>Overall</option>
+          <option>Month</option>
+          <option>Week</option>
+          <option>Year</option>
+        </select>
+      </div>
 
-</div>
+      <div className="cards">
 
-    </>
+        <div className="card income">
+          Income ₹{summary.income}
+        </div>
+
+        <div className="card expense">
+          Expense ₹{summary.expense}
+        </div>
+
+        <div className="card balance">
+          Balance ₹{summary.balance}
+        </div>
+
+      </div>
+
+    </div>
   );
 }
+
+export default Dashboard;
