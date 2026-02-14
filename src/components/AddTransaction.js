@@ -17,7 +17,7 @@ export default function AddTransaction() {
 
   return (
     <div className="section">
-  <div className="section-title">Add Transaction</div>
+  <h2>Add Transaction</h2>
 
   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
     <input placeholder="Amount" onChange={e=>setForm({...form,amount:+e.target.value})}/>
