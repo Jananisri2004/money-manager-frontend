@@ -17,8 +17,8 @@ export default function Transfer() {
   };
 
   return (
-    <div className="section">
-    <h2>Account Transfer</h2>
+<div className="section transfer-box">
+  <div className="section-title">Account Transfer</div>
     <p style={{ color: "#6b7280" }}>Move money between your accounts</p>
 
   <div style={{ display: "grid", gap: "10px", maxWidth: "300px" }}>

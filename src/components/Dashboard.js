@@ -16,21 +16,22 @@ export default function Dashboard() {
   return (
     
     <>
-    <div className="top-bar">
+    <div className="dashboard-header">
+
   <h2>Dashboard</h2>
-  <select onChange={e => load(e.target.value)}>
+
+  <select
+    className="range-select"
+    onChange={(e) => load(e.target.value)}
+  >
     <option value="all">Overall</option>
     <option value="month">This Month</option>
     <option value="week">This Week</option>
     <option value="year">This Year</option>
   </select>
+
 </div>
 
-      <div className="cards">
-        <div className="card income">Income ₹{income}</div>
-        <div className="card expense">Expense ₹{expense}</div>
-        <div className="card balance">Balance ₹{income-expense}</div>
-      </div>
     </>
   );
 }

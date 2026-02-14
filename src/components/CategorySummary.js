@@ -9,8 +9,8 @@ export default function CategorySummary() {
   }, []);
 
   return (
-    <div className="section">
-<h2>Spending by Category</h2>
+<div className="section category-box">
+  <div className="section-title">Spending by Category</div>
 <p style={{color:"#6b7280"}}>Quick overview of where your money goes</p>
       <table>
         <thead>
